@@ -11,5 +11,6 @@ router.get('/', (request, response) => {
 router.get('/contacts', ContactController.index);
 router.get('/contacts/:id', ContactController.show);
 router.delete('/contacts/:id', ContactController.delete);
+router.post('/contacts', ContactController.store);
 
 module.exports = router;

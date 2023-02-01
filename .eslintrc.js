@@ -11,6 +11,7 @@ module.exports = {
 		ecmaVersion: 'latest',
 	},
 	rules: {
+		camelcase: 'off',
 		indent: [2, 'tab'],
 		'class-methods-use-this': 'off',
 		'no-tabs': 0,
