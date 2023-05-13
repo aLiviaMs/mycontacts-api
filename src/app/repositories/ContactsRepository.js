@@ -2,40 +2,27 @@ const { v4 } = require('uuid');
 
 const db = require('../../database');
 
-let contacts = [
-	{
-		id: v4(),
-		name: 'John Doe',
-		email: 'john.doe@gmail.com',
-		phone: '555-555-5555',
-		category_id: v4(),
-	},
-];
-
 class ContactsRepository {
-	findAll() {
-		return new Promise((resolve) => {
-			resolve(contacts);
-		});
+	async findAll() {
+		const rows = await db.query('SELECT * FROM contacts');
+		return rows;
 	}
 
-	findById(id) {
-		return new Promise((resolve) => {
-			resolve(contacts.find((contact) => contact.id === id));
-		});
+	async findById(id) {
+		const [row] = await db.query('SELECT * FROM contacts WHERE id = $1', [id]);
+		return row;
 	}
 
-	findByEmail(email) {
-		return new Promise((resolve) => {
-			resolve(contacts.find((contact) => contact.email === email));
-		});
+	async findByEmail(email) {
+		const [row] = await db.query('SELECT * FROM contacts WHERE email = $1', [email]);
+		return row;
 	}
 
-	delete(id) {
-		return new Promise((resolve) => {
-			contacts = contacts.filter((contact) => contact.id !== id);
-			resolve();
-		});
+	async delete(id) {
+		// return new Promise((resolve) => {
+		// 	contacts = contacts.filter((contact) => contact.id !== id);
+		// 	resolve();
+		// });
 	}
 
 	async create({
